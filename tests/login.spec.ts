@@ -35,7 +35,8 @@ test('Verify login as a user with valid credentials', async ({ page }) => {
 
   await test.step('Verify page title', async () => {
     // Verify page title is "My Account".
-    await expect(page.getByTestId('page-title')).toHaveText('My account');
+    //await expect(page.getByTestId('page-title')).toHaveText('My account');
+    await expect(page.getByRole('heading', { name: 'My account' })).toBeVisible();
    });
 
   await test.step('Verify username in the navigation bar', async () => {
