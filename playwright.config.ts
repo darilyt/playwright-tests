@@ -60,9 +60,13 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    { name: 'auth', testMatch: /auth\.login\.spec\.ts/ },
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { 
+        storageState: './playwright/.auth/user.json',
+        ...devices['Desktop Chrome'] },
+      dependencies: ['auth'],
     },
 
     // {
@@ -75,7 +79,7 @@ export default defineConfig({
     //   use: { ...devices['Desktop Safari'] },
     // },
 
-    /* Test against mobile viewports. */
+    /* Test against mobile viewport. */
     // {
     //   name: 'Mobile Chrome',
     //   use: { ...devices['Pixel 5'] },
