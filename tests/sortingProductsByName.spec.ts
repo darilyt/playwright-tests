@@ -1,10 +1,10 @@
-import test, { chromium, expect } from "@playwright/test";
-import { regularUser } from "../test_data/user";
+//Module 12 - Test 2&3
 
+import test, { expect} from "@playwright/test";
 import path from 'path';
+import { HomePage } from "../pageObjects/home.page";
 
 const authFile = path.join(__dirname, '../playwright/.auth/user.json');
-
 test.use({storageState: authFile });
 
 const sortingOption = [
@@ -12,16 +12,19 @@ const sortingOption = [
     { option: 'Name (Z - A)', direction: 'desc' },
   ];
   
+
+
 sortingOption.forEach(({ option, direction }) => {
+
   test(`Verify user can perform sorting by name ${direction}`, async ({ page }) => { 
 // Open homepage: https://practicesoftwaretesting.com.
 // Select Name (A - Z) / Name (Z - A) in the sort dropdown.
 // Assert: 1. Verify all the displayed products are sorted by names ascending or descending.
-    await page.goto('/');
-    await page.getByTestId('sort').click();
-    await page.selectOption('[data-test="sort"]', { label: option });
+    const homePage = new HomePage(page);    
+    await homePage.openHomePage();  
+    await homePage.selectSortingOption(option);
    
-    const productNames = await page.getByTestId('product-name').allTextContents();
+    const productNames = await homePage.getListOfAllProductNames();
     const sortedNames = [...productNames].sort()
   
     if (direction === 'desc') {

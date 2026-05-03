@@ -1,15 +1,26 @@
 {
+  "baseURL": "./",
   "compilerOptions": {
-    "target": "ES2020",
-    // Using ES2020 modules for modern import/export compatibility
-    "module": "ES2020",
-    "moduleResolution": "node",
-    "ignoreDeprecations": "6.0",
+    "target": "es2016", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    
+    /* Modules */
+    "module": "commonjs", /* Specify what module code is generated. */
+
+   // "moduleResolution": "node",
+   // "ignoreDeprecations": "6.0",
+    "allowSyntheticDefaultImports": true, /* Allow 'import x from y' when a module doesn't have a default export. */
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true, /* Ensure that casing is correct in imports. */
     "resolveJsonModule": true,
-    "noEmit": true,
-    "strict": true,
-    "types": ["node", "playwright/test"]
+
+    /* Type Checking */
+    "strict": true, /* Enable all strict type-checking options. */
+    "noEmit": true, /* Disable compiled files generation. */
+    "types": ["node", "playwright/test"],
+    /* Completeness */
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */
+
   },
-  "include": ["tests/**/*.ts", "playwright.config.ts", "test_data/**/*.ts"]
+  "include": ["**/*.ts", "tests/**/*.ts", "playwright.config.ts", "test_data/**/*.ts"]
+
 }
