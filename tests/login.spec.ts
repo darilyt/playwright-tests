@@ -1,12 +1,11 @@
 //Module 10 - Test1
 
-import test, { chromium, expect } from "@playwright/test";
+import test, { expect } from "@playwright/test";
 import { regularUser } from "../test_data/user";
 
 
-
 test('Verify login as a user with valid credentials', async ({ page }) => {
- const {email, password, name} =  regularUser;
+  const { email, password, name } = regularUser;
 
   await test.step('Open login page', async () => {
     // Open URL: https://practicesoftwaretesting.com/auth/login.
@@ -26,8 +25,8 @@ test('Verify login as a user with valid credentials', async ({ page }) => {
 
   await test.step('Click the Login', async () => {
     // Click the Login button.
-    await page.getByTestId('login-submit').click(); 
-   });
+    await page.getByTestId('login-submit').click();
+  });
 
   await test.step('Verify URL is /account', async () => {
     // Assertions:
@@ -39,11 +38,11 @@ test('Verify login as a user with valid credentials', async ({ page }) => {
     // Verify page title is "My Account".
     //await expect(page.getByTestId('page-title')).toHaveText('My account');
     await expect(page.getByRole('heading', { name: 'My account' })).toBeVisible();
-   });
+  });
 
   await test.step('Verify username in the navigation bar', async () => {
     // Verify username "Jane Doe" appears in the navigation bar.  
     await expect(page.getByTestId('nav-menu')).toHaveText(name);
-   });
+  });
 });
 

@@ -12,7 +12,7 @@ const authFile = path.join(__dirname, '../playwright/.auth/user.json');
 
 test('Verify login as a user with valid credentials', async ({ page }) => {
   const loginPage = new LoginPage(page);
-  const {email, password} = regularUser;
+  const { email, password } = regularUser;
   const basePage = new BasePage(page);
 
   await test.step('Open login page', async () => {
@@ -30,7 +30,7 @@ test('Verify login as a user with valid credentials', async ({ page }) => {
     await basePage.verifyURLContains(/\/account/);
   });
 
-await page.context().storageState({ path: authFile });
+  await page.context().storageState({ path: authFile });
 
 });
 
