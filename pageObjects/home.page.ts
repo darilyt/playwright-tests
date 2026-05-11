@@ -47,5 +47,15 @@ export class HomePage extends BasePage {
         return this.page
             .getByTestId('filters')
             .getByText(categoryName);
-}
+    }
+
+
+    async clickOnCategoryCheckbox(category: string): Promise<void> {
+        await test.step('Click on the category checkbox', async () => {
+            await this.page.getByRole('checkbox', { name: category }).click();
+            await this.page.waitForTimeout(1000)
+            //^^solution with waitForTimeout(1000) to be changed to more stable later. 
+            // Currently, after clicking on the checkbox, the page is not reloaded, but products are getting updates, so need some time for rendering filtered products.  
+        });
+    }
 }
