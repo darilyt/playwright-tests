@@ -26,12 +26,14 @@ export class HomePage extends BasePage {
 
     async getListOfAllProductNames(): Promise<string[]> {
         return await test.step(`Get list of all displayed product names`, async () => {
+            await this.page.waitForLoadState();
             return await this.page.getByTestId('product-name').allTextContents();
         });
     }
 
     async getListOfAllProductPrices(): Promise<string[]> {
         return await test.step(`Get list of all displayed product prices`, async () => {
+            await this.page.waitForLoadState();
             return await this.page.getByTestId('product-price').allTextContents();
         });
     }
@@ -40,6 +42,7 @@ export class HomePage extends BasePage {
         await test.step(`Select ${option} in the sorting dropdown`, async () => {
             await this.page.getByTestId('sort').click();
             await this.page.selectOption('[data-test="sort"]', { label: option });
+            await this.page.waitForLoadState();
         });
     }
 
@@ -47,5 +50,28 @@ export class HomePage extends BasePage {
         return this.page
             .getByTestId('filters')
             .getByText(categoryName);
-}
+    }
+
+    async click1stProduct(): Promise<void> {
+        await this.page.locator('[data-test^="product-"]').first().click();
+    }
+
+
+    async get1stProductName(): Promise<string> {
+        const text = await this.page
+            .getByTestId('product-name')
+            .first()
+            .textContent();
+        return text ?? '';
+    }
+
+    async get1stProductPrice(): Promise<string> {
+        const text = await this.page
+            .getByTestId('product-price')
+            .first()
+            .textContent();
+        return text ?? '';
+    }
+
+
 }
