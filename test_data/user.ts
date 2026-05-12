@@ -1,11 +1,11 @@
 export const regularUser = {
-    // email: 'customer@practicesoftwaretesting.com', 
-    // password: 'welcome01',
-    // name: 'Jane Doe',
+    email: 'customer@practicesoftwaretesting.com', 
+    password: 'welcome01',
+    name: 'Jane Doe',
 
-    email: 'dariia.lytvynenko+4@gmail.com', 
-    password: 'TestPlaywrigh123!?!?',
-    name: 'dar lyt',
+    // email: 'dariia.lytvynenko+4@gmail.com', 
+    // password: 'TestPlaywrigh123!?!?',
+    // name: 'dar lyt',
 
     userCountry: 'Ukraine',
     userPostalCode: '01001',

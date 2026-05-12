@@ -73,5 +73,13 @@ export class HomePage extends BasePage {
         return text ?? '';
     }
 
+    async clickOnCategoryCheckbox(category: string): Promise<void> {
+        await test.step('Click on the category checkbox', async () => {
+            await this.page.getByRole('checkbox', { name: category }).click();
+            await this.page.waitForResponse(response =>
+                response.url().includes('/products') && response.status() === 200
+            );
+        });
+    }
 
 }
