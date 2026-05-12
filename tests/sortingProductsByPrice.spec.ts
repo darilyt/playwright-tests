@@ -1,11 +1,7 @@
 //Module 12 - Test 4&5
 
-import test, { expect } from "@playwright/test";
-import path from 'path';
-import { HomePage } from "../pageObjects/home.page";
-
-const authFile = path.join(__dirname, '../playwright/.auth/user.json');
-test.use({ storageState: authFile });
+import { expect } from "@playwright/test";
+import { test } from "../fixtures";
 
 const sortingOption = [
   { option: 'Price (High - Low)', direction: 'asc' },
@@ -15,15 +11,14 @@ const sortingOption = [
 
 
 sortingOption.forEach(({ option, direction }) => {
-  test(`Verify user can perform sorting by price ${direction}`, async ({ page }) => {
+  test(`Verify user can perform sorting by price ${direction}`, async ({ allPages }) => {
     // Open homepage: https://practicesoftwaretesting.com.
     // Select Price (High - Low) / Price (Low - High) in the sort dropdown.
     //Assert: 1. Verify all the displayed products are sorted by prices ascending or descending.
-    const homePage = new HomePage(page);
-    await homePage.openHomePage();
-    await homePage.selectSortingOption(option);
+    await allPages.homePage.openHomePage();
+    await allPages.homePage.selectSortingOption(option);
 
-    const productPrices = await homePage.getListOfAllProductPrices();
+    const productPrices = await allPages.homePage.getListOfAllProductPrices();
     const sortedPrices = [...productPrices].sort()
 
     if (direction === 'desc') {

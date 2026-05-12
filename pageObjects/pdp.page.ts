@@ -17,9 +17,11 @@ export class PDPPage extends BasePage {
         });
     }
 
+
     async verifyProductName(expectedName: string): Promise<void> {
         await expect(this.page.getByTestId('product-name')).toHaveText(expectedName);
     }
+
 
     async verifyProductPrice(expectedPrice: string): Promise<void> {
         await expect(this.page.getByTestId('unit-price')).toHaveText(expectedPrice);
