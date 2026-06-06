@@ -1,21 +1,18 @@
 //Module 13
 
 import { test } from "../fixtures";
-//import path from 'path';
-//import { HeaderFragment } from "../pageObjects/header.fragment";
 import { regularUser } from "../test_data/user";
-
+import { generateExpirationDate } from '../utils/dateUtils';
 
 test(`Verify user can purchase 1st product from base page`, async ({ loggedInPage }) => {
     await loggedInPage.homePage.openHomePage();
-    const headerFragment = loggedInPage.pdpPage.header;
+    const headerFragment = loggedInPage.homePage.header;
     const { name, userCountry, userPostalCode, userHouseNumber, cardNumber, cardCVV, cardHolder } = regularUser;
 
     let productToVerifyName: string;
     let productToVerifyPrice: string;
 
     await test.step(`Add to cart 1st product on base page and store product name and product price`, async () => {
-
         productToVerifyName = await loggedInPage.homePage.get1stProductName();
         productToVerifyPrice = await loggedInPage.homePage.get1stProductPrice();
         await loggedInPage.homePage.click1stProduct();
@@ -48,11 +45,7 @@ test(`Verify user can purchase 1st product from base page`, async ({ loggedInPag
 
     await test.step(`Fill in credit card details`, async () => {
         await loggedInPage.checkoutPage.clickOnProceedToCheckout3ToPayment();
-        const date = new Date();
-        date.setMonth(date.getMonth() + 3);
-        date.getMonth();
-        date.getFullYear();
-        const expirationDate = ((date.getMonth()+1).toString().padStart(2, "0") + '/' + date.getFullYear());
+        const expirationDate = generateExpirationDate();
         await loggedInPage.checkoutPage.payWithPaymentMethodCreditCard(cardNumber, cardCVV, expirationDate, cardHolder);
     });
 

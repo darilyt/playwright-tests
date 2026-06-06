@@ -1,7 +1,7 @@
 //Module 12 - Test 4&5
 
-import { expect } from "@playwright/test";
-import { test } from "../fixtures";
+//import { expect, } from "@playwright/test";
+import { test, expect } from "../fixtures";
 
 const sortingOption = [
   { option: 'Price (High - Low)', direction: 'asc' },

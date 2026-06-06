@@ -86,10 +86,10 @@ export class CheckoutPage extends BasePage {
             await this.CountryField.selectOption(userCountry);
             await this.page.waitForLoadState()
             await this.PostalCodeField.clear();
-            await this.PostalCodeField.pressSequentially(userPostalCode);
+            await this.PostalCodeField.fill(userPostalCode);
             await this.page.waitForLoadState()
             await this.HouseNumberField.clear();
-            await this.HouseNumberField.pressSequentially(userHouseNumber);
+            await this.HouseNumberField.fill(userHouseNumber);
         });
     }
    
@@ -98,16 +98,16 @@ export class CheckoutPage extends BasePage {
             await this.page.waitForLoadState()
             await this.PaymentMethodDropdownField.selectOption('Credit Card');
             await this.page.waitForLoadState()
-            await this.CreditCardNumberField.pressSequentially(cardNumber);
+            await this.CreditCardNumberField.fill(cardNumber);
             await this.page.waitForLoadState()
             await this.CreditCardCVVField.clear();
-            await this.CreditCardCVVField.pressSequentially(cardCVV);
+            await this.CreditCardCVVField.fill(cardCVV);
             await this.page.waitForLoadState()
             await this.CreditCardExpirationField.clear();
-            await this.CreditCardExpirationField.pressSequentially(cardExpiration);
+            await this.CreditCardExpirationField.fill(cardExpiration);
             await this.page.waitForLoadState()
             await this.CreditCardHolderField.clear();
-            await this.CreditCardHolderField.pressSequentially(cardHolder);   
+            await this.CreditCardHolderField.fill(cardHolder);   
         });
 
         await test.step('Confirm payment', async () => {
