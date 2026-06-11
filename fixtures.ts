@@ -16,9 +16,9 @@ export const test = base.extend<MyFixtures>({
     },
 
     loggedInPage: async ({ allPages }, use) => {
-        const { email, password } = regularUser;
-        await allPages.loginPage.openLoginPage();
-        await allPages.loginPage.performLogin(email, password);
+    //    const { email, password } = regularUser;
+    //     await allPages.loginPage.openLoginPage();
+    //     await allPages.loginPage.performLogin(email, password);
         await use(allPages);
     },
     

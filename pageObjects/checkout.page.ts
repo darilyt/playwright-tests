@@ -11,14 +11,14 @@ export class CheckoutPage extends BasePage {
         this.header = new HeaderFragment(page);
     }
 
-    CountryField: Locator = this.page.getByTestId('country');
-    PostalCodeField: Locator = this.page.getByTestId('postal_code');
-    HouseNumberField: Locator = this.page.getByTestId('house_number');
-    PaymentMethodDropdownField: Locator = this.page.getByTestId('payment-method');
-    CreditCardNumberField: Locator = this.page.getByTestId('credit_card_number');
-    CreditCardCVVField: Locator = this.page.getByTestId('cvv');
-    CreditCardExpirationField: Locator = this.page.getByTestId('expiration_date');
-    CreditCardHolderField: Locator = this.page.getByTestId('card_holder_name');
+    countryField: Locator = this.page.getByTestId('country');
+    postalCodeField: Locator = this.page.getByTestId('postal_code');
+    houseNumberField: Locator = this.page.getByTestId('house_number');
+    paymentMethodDropdownField: Locator = this.page.getByTestId('payment-method');
+    creditCardNumberField: Locator = this.page.getByTestId('credit_card_number');
+    creditCardCVVField: Locator = this.page.getByTestId('cvv');
+    creditCardExpirationField: Locator = this.page.getByTestId('expiration_date');
+    creditCardHolderField: Locator = this.page.getByTestId('card_holder_name');
 
 
     async verifyNumberOfProducts(expectedCount: number): Promise<void> {
@@ -62,7 +62,6 @@ export class CheckoutPage extends BasePage {
     async clickOnProceedToCheckout(): Promise<void> {
         await test.step('Click Proceed to Checkout', async () => {
             await this.page.getByTestId('proceed-1').click();
-            await this.page.waitForLoadState()
         });
     }
 
@@ -70,49 +69,40 @@ export class CheckoutPage extends BasePage {
         await test.step('Click Proceed to Checkout', async () => {
             await this.page.getByTestId('proceed-2').click();
             await this.page.waitForLoadState()
+            //without this waitForLoadState() test fails
         });
     }
         async clickOnProceedToCheckout3ToPayment(): Promise<void> {
         await test.step('Click Proceed to Checkout', async () => {
             await this.page.getByTestId('proceed-3').click();
-            await this.page.waitForLoadState()
         });
     }
 
     async fillInBillingAddress(userCountry: string, userPostalCode: string, userHouseNumber: string): Promise<void> {
         await test.step('Fill in billing information', async () => {
             //заповнюються тільки обов'язкові поля, які відсутні. В даному випадку це Country, Postal code і House number. Enter country, postal code and house number. We will fill in the rest automatically.
-            await this.page.waitForLoadState()
-            await this.CountryField.selectOption(userCountry);
-            await this.page.waitForLoadState()
-            await this.PostalCodeField.clear();
-            await this.PostalCodeField.fill(userPostalCode);
-            await this.page.waitForLoadState()
-            await this.HouseNumberField.clear();
-            await this.HouseNumberField.fill(userHouseNumber);
+            await this.countryField.selectOption(userCountry);
+            await this.postalCodeField.clear();
+            await this.postalCodeField.fill(userPostalCode);
+            await this.houseNumberField.clear();
+            await this.houseNumberField.fill(userHouseNumber);
         });
     }
    
     async payWithPaymentMethodCreditCard(cardNumber: string, cardCVV: string, cardExpiration: string, cardHolder: string): Promise<void> {
         await test.step('Select Credit Card Payment Method and fill in details', async () => {
-            await this.page.waitForLoadState()
-            await this.PaymentMethodDropdownField.selectOption('Credit Card');
-            await this.page.waitForLoadState()
-            await this.CreditCardNumberField.fill(cardNumber);
-            await this.page.waitForLoadState()
-            await this.CreditCardCVVField.clear();
-            await this.CreditCardCVVField.fill(cardCVV);
-            await this.page.waitForLoadState()
-            await this.CreditCardExpirationField.clear();
-            await this.CreditCardExpirationField.fill(cardExpiration);
-            await this.page.waitForLoadState()
-            await this.CreditCardHolderField.clear();
-            await this.CreditCardHolderField.fill(cardHolder);   
+            await this.paymentMethodDropdownField.selectOption('Credit Card');
+            await this.creditCardNumberField.fill(cardNumber);
+            await this.creditCardCVVField.clear();
+            await this.creditCardCVVField.fill(cardCVV);
+            await this.creditCardExpirationField.clear();
+            await this.creditCardExpirationField.fill(cardExpiration);
+            await this.creditCardHolderField.clear();
+            await this.creditCardHolderField.fill(cardHolder);   
         });
 
         await test.step('Confirm payment', async () => {
             await this.page.getByTestId('finish').click();
-            await this.page.waitForLoadState()
         });
     }
 
