@@ -60,7 +60,10 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    { name: 'auth', testMatch: /auth\.login\.spec\.ts/ },
+    //{ name: 'auth', testMatch: /auth\.login\.spec\.ts/ },
+    //Unit-14: changed to login via API:
+    { name: 'auth', testMatch: /login-via-API\.spec\.ts/ },
+    
     {
       name: 'chromium',
       use: { 
@@ -107,3 +110,4 @@ export default defineConfig({
   //   reuseExistingServer: !process.env.CI,
   // },
 });
+
