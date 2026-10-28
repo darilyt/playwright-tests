@@ -2,11 +2,10 @@
 
 import test from "@playwright/test";
 import { regularUser } from "../test_data/user";
-import path from 'path';
 import { AccountPage } from "../pageObjects/account.page";
 import { HomePage } from "../pageObjects/home.page";
+import { authFile } from '../config/auth';
 
-const authFile = path.join(__dirname, '../playwright/.auth/user.json');
 test.use({ storageState: authFile });
 
 

@@ -1,35 +1,14 @@
 //Module 14
+import { test } from '../fixtures';
+import { regularUser } from '../test_data/user';
+import { authFile } from '../config/auth';
+import { loginAndGetToken } from '../api/auth.api';
+import { addLoginToken } from '../utils/auth.utils';
 
-import { test, expect } from '@playwright/test';
-import path from 'path';
-import { regularUser } from "../test_data/user";
-
-const authFile = path.join(__dirname, '../../playwright/.auth/user.json');
-let token: string;
-
-test('get access_token via API', async ({ request }) => {
-    const response = await request.post('https://api.practicesoftwaretesting.com/users/login', {
-        data: {
-            email: regularUser.email,
-            password: regularUser.password,
-        },
-    })
-    const jsonData = await response.json();
-    token = jsonData.access_token;
-});
-
-test('verify login via API can be performed successfully', async ({ page }) => {
-    const { name } = regularUser;
-    
-    await page.goto('/auth/login');
-
-    await page.evaluate((token) => {
-        localStorage.setItem('auth-token', token);
-    }, token);
-
-    await page.reload();
-    await expect(page.locator('[data-test="nav-menu"]')).toContainText(name);
+test('login via API and save storage state', async ({ page, request, allPages }) => {
+    const token = await loginAndGetToken(request, regularUser.email, regularUser.password);
+    await addLoginToken(page, token);
+    await allPages.homePage.header.verifyUserNameInNavBar(regularUser.name);
 
     await page.context().storageState({ path: authFile });
 });
-

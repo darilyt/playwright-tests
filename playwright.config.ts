@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+import { authFile } from './config/auth';
 
 /**
  * Read environment variables from file.
@@ -62,12 +63,13 @@ export default defineConfig({
   projects: [
     //{ name: 'auth', testMatch: /auth\.login\.spec\.ts/ },
     //Unit-14: changed to login via API:
-    { name: 'auth', testMatch: /login-via-API\.spec\.ts/ },
+    { name: 'auth', testMatch: /loginViaAPI\.spec\.ts/ },
     
     {
       name: 'chromium',
+      testIgnore: /loginViaAPI\.spec\.ts/,
       use: { 
-        storageState: './playwright/.auth/user.json',
+        storageState: authFile,
         ...devices['Desktop Chrome'] },
       dependencies: ['auth'],
     },

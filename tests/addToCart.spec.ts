@@ -1,14 +1,12 @@
 //Module 12 - Test 1
 
 import test from "@playwright/test";
-import path from 'path';
 import { HomePage } from "../pageObjects/home.page";
 import { PDPPage } from "../pageObjects/pdp.page";
 import { BasePage } from "../pageObjects/base.page";
 import { CheckoutPage } from "../pageObjects/checkout.page";
+import { authFile } from '../config/auth';
 
-
-const authFile = path.join(__dirname, '../playwright/.auth/user.json');
 test.use({ storageState: authFile });
 
 

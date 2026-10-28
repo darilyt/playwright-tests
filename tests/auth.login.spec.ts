@@ -1,12 +1,10 @@
 //Module 12 - Task 'Authentication'
 
 import { test } from '@playwright/test';
-import path from 'path';
 import { regularUser } from '../test_data/user';
 import { LoginPage } from '../pageObjects/login.page';
 import { BasePage } from '../pageObjects/base.page';
-
-const authFile = path.join(__dirname, '../playwright/.auth/user.json');
+import { authFile } from '../config/auth';
 
 
 
