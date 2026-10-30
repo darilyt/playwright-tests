@@ -1,11 +1,10 @@
 //Module 12 - Test 4&5
 
-//import { expect, } from "@playwright/test";
 import { test, expect } from "../fixtures";
 
 const sortingOption = [
-  { option: 'Price (High - Low)', direction: 'asc' },
-  { option: 'Price (Low - High)', direction: 'desc' },
+  { option: 'Price (High - Low)', direction: 'desc' },
+  { option: 'Price (Low - High)', direction: 'asc' },
 ];
 
 
@@ -19,12 +18,13 @@ sortingOption.forEach(({ option, direction }) => {
     await allPages.homePage.selectSortingOption(option);
 
     const productPrices = await allPages.homePage.getListOfAllProductPrices();
-    const sortedPrices = [...productPrices].sort()
+    const prices = productPrices.map(price => parseFloat(price.replace('$', '')));
+    const sortedPrices = [...prices].sort((a, b) => a - b);
 
     if (direction === 'desc') {
       sortedPrices.reverse();
     }
-    expect(productPrices).toEqual(sortedPrices);
+    expect(prices).toEqual(sortedPrices);
 
   });
 });

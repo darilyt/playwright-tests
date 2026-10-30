@@ -1,10 +1,8 @@
 //Module 11 - Task 3
 
 import { test } from "../fixtures";
-import path from 'path';
+import { authFile } from '../config/auth';
 
-
-const authFile = path.join(__dirname, '../playwright/.auth/user.json');
 test.use({ storageState: authFile });
 
 

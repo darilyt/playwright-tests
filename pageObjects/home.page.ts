@@ -1,6 +1,6 @@
-import { test, Page, Locator } from '@playwright/test';
 import { BasePage } from './base.page';
 import { HeaderFragment } from './header.fragment';
+import { test, expect, Page, Locator } from '@playwright/test';
 
 export class HomePage extends BasePage {
     header: HeaderFragment;
@@ -40,9 +40,13 @@ export class HomePage extends BasePage {
 
     async selectSortingOption(option: string): Promise<void> {
         await test.step(`Select ${option} in the sorting dropdown`, async () => {
-            await this.page.getByTestId('sort').click();
-            await this.page.selectOption('[data-test="sort"]', { label: option });
-            await this.page.waitForLoadState();
+            const responsePromise = this.page.waitForResponse(response =>
+                response.url().endsWith('/products') &&
+                (response.request().postData() ?? '').includes('sort') &&
+                response.status() === 200
+            );
+            await this.page.getByTestId('sort').selectOption({ label: option });
+            await responsePromise;
         });
     }
 
@@ -81,5 +85,11 @@ export class HomePage extends BasePage {
             );
         });
     }
+
+    async verifyNumberOfProducts(expectedCount: number): Promise<void> {
+        await test.step(`Verify ${expectedCount} products are displayed`, async () => {
+            await expect(this.page.getByTestId('product-name')).toHaveCount(expectedCount);
+    });
+}
 
 }

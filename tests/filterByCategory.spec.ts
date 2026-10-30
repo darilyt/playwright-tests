@@ -2,9 +2,8 @@
 
 import { test } from "../fixtures";
 import { expect } from "@playwright/test";
-import path from 'path';
+import { authFile } from '../config/auth';
 
-const authFile = path.join(__dirname, '../playwright/.auth/user.json');
 test.use({ storageState: authFile });
 
 
